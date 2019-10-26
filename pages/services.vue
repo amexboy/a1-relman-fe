@@ -1,24 +1,48 @@
 <template>
   <v-layout
-    column
+    row
     justify-center
     align-center
   >
     <v-flex
       xs12
       sm8
-      md6
+      lg6
     >
       <v-card>
         <v-card-title class="headline">
             Services List
+            <v-spacer></v-spacer>
+
+            <v-text-field
+                v-model="search"
+                append-icon="mdi-search"
+                label="Search"
+                single-line
+                hide-details></v-text-field>
         </v-card-title>
         <v-card-text>
             <v-data-table
                 :headers="headers"
-                :items="desserts"
+                :items="services"
                 :search="search"
-            ></v-data-table>
+            >
+                <template v-slot:item.action="{ item }">
+                    <v-icon
+                        small
+                        class="mr-2"
+                        @click="editItem(item)"
+                    >
+                        pencil
+                    </v-icon>
+                    <v-icon
+                        small
+                        @click="deleteItem(item)"
+                    >
+                        delete
+                    </v-icon>
+                </template>
+            </v-data-table>
         </v-card-text>
       </v-card>
     </v-flex>
@@ -26,34 +50,11 @@
 </template>
 
 <script>
-// const loadService = function (name){
-//     return axios.get("/?q="+ name)
-//                 .then(({data}) => {
-//                     return data;
-//                 })
-//                 .catch(err => {
-//                     console.log(err)
-//                     return {}
-//                 })
-// };
-
-//const reload = function (){
-//        return Promise.all(serviceNames
-//            .map(name => loadService(name))
-//        )
-//                      .then(results => results.filter(service => service.name))
-//    }
-
 
 export default {
     async asyncData({ $axios }){
         let services = await $axios.$get("/services")
-                                  .then(({data}) => data)
-                                   .catch(err => {
-                                       console.log(err)
-
-                                       return []
-                                   })
+                                   .catch(err => [])
 
         return {services}
     },
@@ -68,10 +69,10 @@ export default {
                     value: 'name',
                 },
                 { text: 'Owner Team', value: 'team' },
-                { text: 'Slack Channel', value: 'channel' },
-                { text: 'Slack Handle', value: 'handle' },
-                { text: 'Team Lead', value: 'teamLead' },
-                { text: 'Actions', filterable: false },
+                { text: 'Slack Channel', value: 'slack-channel' },
+                { text: 'Slack Handle', value: 'slack-group' },
+                { text: 'Team', value: 'team' },
+                { text: 'Actions', value: 'action', filterable: false },
             ]
         }
     },

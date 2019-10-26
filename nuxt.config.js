@@ -24,13 +24,13 @@ export default {
   /*
   ** Global CSS
   */
-  css: [
-  ],
+  css: [],
   /*
   ** Plugins to load before mounting the App
   */
-  plugins: [
-  ],
+    plugins: [
+        "~/plugins/tiptap-vuetify"
+    ],
   /*
   ** Nuxt.js dev-modules
   */
@@ -41,23 +41,26 @@ export default {
   ** Nuxt.js modules
   */
   modules: [
-      "@nuxtjs/axios"
+    '@nuxtjs/axios'
   ],
-    axios: {
-        prefix: "/api",
-        proxy: true
-    },
-    proxy: {
-        "/api/": "http://localhost:7777"
-    },
+  axios: {
+    prefix: '/api',
+    proxy: true
+  },
+  proxy: {
+    '/api/': 'http://localhost:7777'
+  },
   /*
   ** vuetify module configuration
   ** https://github.com/nuxt-community/vuetify-module
   */
   vuetify: {
     customVariables: ['~/assets/variables.scss'],
+    defaultAssets: {
+      icons: 'md'
+    },
     theme: {
-      dark: true,
+      dark: false,
       themes: {
         dark: {
           primary: colors.blue.darken2,
@@ -79,6 +82,7 @@ export default {
     ** You can extend webpack config here
     */
     extend (config, ctx) {
-    }
+    },
+      transpile: ['vuetify/lib', "tiptap-vuetify"]
   }
 }

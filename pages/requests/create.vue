@@ -1,5 +1,5 @@
 <template>
-  <v-layout row >
+  <v-layout row class="px-5 mx-5">
     <v-flex xs12 md6>
       <v-combobox
         v-model="service"
@@ -28,6 +28,10 @@
         <v-card-text v-html="result"></v-card-text>
       </v-card>
     </v-flex>
+
+    <v-flex xs12>
+      <v-spacer></v-spacer>
+      <v-btn @click="request" text success><v-icon>send</v-icon> Send Request</v-btn>
     </v-flex>
   </v-layout>
 </template>
@@ -58,6 +62,18 @@ export default {
     args: [],
     result: null
   }),
+  methods: {
+    request(){
+      let data = {
+        service: this.service,
+        ...this.data
+      }
+
+      this.$axios.$post("/templates/"+ this.template + "/service/" + this.service + "/request", data)
+          .then(result => this.result = result.message)
+          .catch(_ => "something")
+    }
+  },
   watch: {
     template(to){
       this.$axios.$get("/templates/" + to + "/service/"+ this.service + "/args")

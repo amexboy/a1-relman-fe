@@ -13,7 +13,8 @@
   "dependencies": {
     "@nuxtjs/axios": "^5.8.0",
     "nuxt": "^2.0.0",
-    "tiptap-vuetify": "^2.4.0"
+    "tiptap-vuetify": "^2.4.0",
+    "vuetify-dialog": "^2.0.0-rc.0"
   },
   "devDependencies": {
     "@nuxtjs/vuetify": "^1.0.0"

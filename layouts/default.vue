@@ -82,8 +82,13 @@ export default {
         },
         {
           icon: 'help',
-          title: 'Request',
-          to: '/request'
+          title: 'Request New',
+          to: '/requests/create'
+        },
+        {
+          icon: 'list',
+          title: 'Requests',
+          to: '/requests/'
         }
 
       ],
